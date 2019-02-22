@@ -6,13 +6,31 @@
     <title>Placeholder</title>
 </head>
 <body>
-<canvas id="myChart"></canvas>
+    <label for="X">X</label>
+    <input id="X" type="text">
+    <label for="Y">Y</label>
+    <select id="Y">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+    </select>
+    <button onclick="calculate(this.chart)">Calculate</button>
+    <canvas id="myChart"></canvas>
 </body>
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
-        type: 'line',
+        type: 'bar',
 
         // The data for our dataset
         data: {
@@ -21,12 +39,73 @@
                 label: "My First dataset",
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45],
+                data: [1],
             }]
         },
 
         // Configuration options go here
-        options: {}
+        options: {
+            scales: {
+                yAxes: [{
+                    display: true,
+                }]
+            }
+        }
     });
+
+    function addData(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+    });
+        chart.update();
+    }
+
+    function removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+    });
+        chart.update();
+    }
+
+    function calculate() {
+       var x = document.getElementById('X').value;
+       var y = document.getElementById('Y').value;
+
+       var result1 = modelOne(x, y);
+       var result2 = modelTwo(x, y);
+       var result3 = result2 - result1;
+       var resultArray = [result1, result2, result3];
+
+       removeData(chart);
+       resultArray.forEach((data) => {
+           addData(chart, 'Testing', data);
+        });
+    }
+
+    function modelOne(x, y) {
+      var step2 = x - (x * 0.238);
+      var step3 = step2 * (1.1^y);
+      var step4 = x - step3;
+      var step5 = step3 * .18;
+      var step6 = step4 - step5;
+      var step7 = step6 * .238;
+      var step8 = step6 - step7;
+
+      return step8;
+    }
+
+    function modelTwo(x, y) {
+        var step2 = x * (1.1^y);
+        var step3 = x * .238;
+        var step4 = step3 * .1;
+        var step5 = step3 * .05;
+        var step6 = x * .18;
+        var step7 = (step4 + step5) - (step2 - (step3 + step6));
+
+        return step7;
+    }
+
 </script>
 </html>
