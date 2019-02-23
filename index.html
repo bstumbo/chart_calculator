@@ -34,12 +34,12 @@
 
         // The data for our dataset
         data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["Result1", "Result2", "Result3"],
             datasets: [{
-                label: "My First dataset",
+                label: "GP Calculator",
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [1],
+                data: [0],
             }]
         },
 
@@ -72,13 +72,14 @@
     function calculate() {
        var x = document.getElementById('X').value;
        var y = document.getElementById('Y').value;
-
        var result1 = modelOne(x, y);
        var result2 = modelTwo(x, y);
        var result3 = result2 - result1;
        var resultArray = [result1, result2, result3];
 
-       removeData(chart);
+      resultArray.forEach((data) => {
+          removeData(chart);
+      });
        resultArray.forEach((data) => {
            addData(chart, 'Testing', data);
         });
