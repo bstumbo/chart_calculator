@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-default.css" />
+<script src="http://github.hubspot.com/odometer/odometer.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Placeholder</title>
 </head>
 <body>
     <label for="X">X</label>
-    <input id="X" type="text">
+    <input id="X" type="text" value="500000">
     <label for="Y">Y</label>
     <select id="Y">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        <option>11</option>
-        <option>12</option>
+        <option value="06">6</option>
+        <option value="07">7</option>
+        <option value="08">8</option>
+        <option value="09">9</option>
+        <option value="10" selected>10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
     </select>
     <button onclick="calculate(this.chart)">Calculate</button>
+    <span>“Total Tax Savings”</span> <div id="odometer" class="odometer"></div>
     <canvas id="myChart"></canvas>
 </body>
 <script>
@@ -75,8 +73,9 @@
        var result1 = modelOne(x, y);
        var result2 = modelTwo(x, y);
        var result3 = result2 - result1;
-       var resultArray = [result1, result2, result3];
+       var resultArray = [result1, result2];
 
+      setResult(result3);
       resultArray.forEach((data) => {
           removeData(chart);
       });
@@ -86,26 +85,31 @@
     }
 
     function modelOne(x, y) {
-      var step2 = x - (x * 0.238);
-      var step3 = step2 * (1.1^y);
-      var step4 = x - step3;
-      var step5 = step3 * .18;
+      var newY = 1 + '.' + y;
+      var step3 = x - (x * 0.238);
+      var step4 = step3 * (Number(newY)^10);
+      var step5 = step3 * .15;
       var step6 = step4 - step5;
       var step7 = step6 * .238;
-      var step8 = step6 - step7;
+      var step8 = step7 - step6;
 
       return step8;
     }
 
     function modelTwo(x, y) {
-        var step2 = x * (1.1^y);
+        var newY = 1 + '.' + y;
+        var step2 = x * (Number(newY)^10);
         var step3 = x * .238;
         var step4 = step3 * .1;
         var step5 = step3 * .05;
-        var step6 = x * .18;
-        var step7 = (step4 + step5) - (step2 - (step3 + step6));
+        var step6 = x * .15;
+        var step7 = (step2 + (step4 + step5)) - (step3 + step6);
 
         return step7;
+    }
+
+    function setResult(result) {
+        odometer.innerHTML = result;
     }
 
 </script>
