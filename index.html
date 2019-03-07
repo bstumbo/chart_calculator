@@ -32,7 +32,7 @@
 
         // The data for our dataset
         data: {
-            labels: ["Result1", "Result2", "Result3"],
+            labels: ["Non-QOF Investment", "QOF Investment"],
             datasets: [{
                 label: "GP Calculator",
                 backgroundColor: 'rgb(255, 99, 132)',
@@ -68,12 +68,12 @@
     }
 
     function calculate() {
-       var x = document.getElementById('X').value;
-       var y = document.getElementById('Y').value;
-       var result1 = modelOne(x, y);
-       var result2 = modelTwo(x, y);
-       var result3 = result2 - result1;
-       var resultArray = [result1, result2];
+       let x = document.getElementById('X').value;
+       let y = document.getElementById('Y').value;
+       let result1 = modelOne(x, y);
+       let result2 = modelTwo(x, y);
+       let result3 = result2 - result1;
+       let resultArray = [result1, result2];
 
       setResult(result3);
       resultArray.forEach((data) => {
@@ -85,25 +85,25 @@
     }
 
     function modelOne(x, y) {
-      var newY = 1 + '.' + y;
-      var step3 = x - (x * 0.238);
-      var step4 = step3 * (Number(newY)^10);
-      var step5 = step3 * .15;
-      var step6 = step4 - step5;
-      var step7 = step6 * .238;
-      var step8 = step7 - step6;
+      let newY = 1 + '.' + y;
+      let step3 = x - (x * 0.238);
+      let step4 = step3 * Math.pow(parseFloat(newY), 10);
+      let step5 = step3 * .15;
+      let step6 = step4 - step5;
+      let step7 = step6 * .238;
+      let step8 = step6 - step7;
 
       return step8;
     }
 
     function modelTwo(x, y) {
-        var newY = 1 + '.' + y;
-        var step2 = x * (Number(newY)^10);
-        var step3 = x * .238;
-        var step4 = step3 * .1;
-        var step5 = step3 * .05;
-        var step6 = x * .15;
-        var step7 = (step2 + (step4 + step5)) - (step3 + step6);
+        let newY = 1 + '.' + y;
+        let step2 = x * Math.pow(parseFloat(newY), 10);
+        let step3 = x * .238;
+        let step4 = step3 * .1;
+        let step5 = step3 * .05;
+        let step6 = x * .15;
+        let step7 = (step2 + (step4 + step5)) - (step3 + step6);
 
         return step7;
     }
