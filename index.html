@@ -9,7 +9,7 @@
 </head>
 <body>
     <label for="X">X</label>
-    <input id="X" type="text" value="500000">
+    <input id="X" type="text" value="500,000">
     <label for="Y">Y</label>
     <select id="Y">
         <option value="06">6</option>
@@ -68,7 +68,7 @@
     }
 
     function calculate() {
-       let x = document.getElementById('X').value;
+       let x = parseFloat(document.getElementById('X').value.replace(/,/g, ''));
        let y = document.getElementById('Y').value;
        let result1 = modelOne(x, y);
        let result2 = modelTwo(x, y);
