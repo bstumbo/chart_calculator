@@ -70,9 +70,9 @@
     function calculate() {
        let x = parseFloat(document.getElementById('X').value.replace(/,/g, ''));
        let y = document.getElementById('Y').value;
-       let result1 = modelOne(x, y);
-       let result2 = modelTwo(x, y);
-       let result3 = result2 - result1;
+       let result1 = Number(modelOne(x, y)).toFixed(2);
+       let result2 = Number(modelTwo(x, y)).toFixed(2);
+       let result3 = Number(result2 - result1).toFixed(2);
        let resultArray = [result1, result2];
 
       setResult(result3);
