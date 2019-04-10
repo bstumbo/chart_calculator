@@ -87,9 +87,9 @@
       let newY = 1 + '.' + y;
       let step3 = x - (x * 0.238);
       let step4 = step3 * Math.pow(parseFloat(newY), 10);
-      let step5 = step3 * .15;
+      let step5 = step3 * 0.15;
       let step6 = step4 - step5;
-      let step7 = step6 * .238;
+      let step7 = (step4 - step3) * 0.238;
       let step8 = step6 - step7;
 
       return step8;
